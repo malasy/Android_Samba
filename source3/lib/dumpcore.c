@@ -303,7 +303,7 @@ void dump_core_setup(const char *progname, const char *log_file)
 		DEBUG(0,("dumping core in %s\n", corepath));
 	}
 
-	umask(~(0700));
+	umask(077);
 	dbgflush();
 
 #if defined(HAVE_PRCTL) && defined(PR_SET_DUMPABLE)

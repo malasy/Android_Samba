@@ -1040,7 +1040,7 @@ wbcErr wbcCtxGetDisplayName(struct wbcContext *ctx,
 
 		wbcFreeMemory(name);
 
-		name = wbcStrDup(pwd->pw_gecos);
+		name = wbcStrDup(pwd->pw_name);
 		wbcFreeMemory(pwd);
 		BAIL_ON_PTR_ERROR(name, wbc_status);
 	}

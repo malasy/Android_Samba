@@ -31,6 +31,7 @@
 #define _LOADPARM_H
 
 #include <talloc.h>
+#include "system/time.h"
 
 struct parmlist_entry {
 	struct parmlist_entry *prev, *next;

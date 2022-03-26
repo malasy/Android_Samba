@@ -44,6 +44,7 @@
 #define _FOUND_IFACE_ANY
 #else
 
+#ifndef __ANDROID__
 void rep_freeifaddrs(struct ifaddrs *ifp)
 {
 	if (ifp != NULL) {
@@ -55,6 +56,7 @@ void rep_freeifaddrs(struct ifaddrs *ifp)
 		free(ifp);
 	}
 }
+#endif // __ANDROID__
 
 static struct sockaddr *sockaddr_dup(struct sockaddr *sa)
 {
@@ -374,6 +376,12 @@ int rep_getifaddrs(struct ifaddrs **ifap)
 
 #define _FOUND_IFACE_ANY
 #endif /* HAVE_IFACE_AIX */
+
+#ifdef __ANDROID__
+#include "netlink_ifaddrs.c"
+#define _FOUND_IFACE_ANY
+#endif /* __ANDROID__ */
+
 #ifndef _FOUND_IFACE_ANY
 int rep_getifaddrs(struct ifaddrs **ifap)
 {

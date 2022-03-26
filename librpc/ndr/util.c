@@ -20,8 +20,8 @@
 */
 
 #include "includes.h"
-#include "../librpc/ndr/libndr.h"
 #include "system/network.h"
+#include "../librpc/ndr/libndr.h"
 #include "lib/util/util_net.h"
 
 _PUBLIC_ void ndr_print_sockaddr_storage(struct ndr_print *ndr, const char *name, const struct sockaddr_storage *ss)

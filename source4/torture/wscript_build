@@ -256,7 +256,7 @@ bld.SAMBA_MODULE('TORTURE_NET',
 	autoproto='libnet/proto.h',
 	subsystem='smbtorture',
 	init_function='torture_net_init',
-	deps='samba-net popt POPT_CREDENTIALS torture_rpc PROVISION',
+	deps='samba-net popt POPT_CREDENTIALS torture_rpc',
 	internal_module=True
 	)
 
@@ -292,7 +292,7 @@ bld.SAMBA_BINARY('smbtorture',
                  manpages='man/smbtorture.1',
                  private_headers='smbtorture.h',
                  deps='torturemain torture popt POPT_SAMBA POPT_CREDENTIALS dcerpc LIBCLI_SMB SMBREADLINE ' + TORTURE_MODULES,
-                 pyembed=True
+                 #pyembed=True
                  )
 
 bld.SAMBA_BINARY('gentest',

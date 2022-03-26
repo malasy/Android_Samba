@@ -28,21 +28,7 @@ def configure(conf):
                        mandatory=True)
         conf.DEFINE('HAVE_GNUTLS_3_4_7', 1)
         conf.DEFINE('HAVE_GNUTLS3', 1)
-    else:
-        if conf.CHECK_CFG(package='gnutls',
-                          args='"gnutls >= 3.4.7" --cflags --libs',
-                          msg='Checking for gnutls >= 3.4.7',
-                          mandatory=False):
-            conf.DEFINE('HAVE_GNUTLS_3_4_7', 1)
-            conf.DEFINE('HAVE_GNUTLS3', 1)
-        elif conf.CHECK_CFG(package='gnutls',
-                            args='"gnutls >= 3.0.0" --cflags --libs',
-                            msg='Checking for gnutls >= 3.0.0s', mandatory=False):
-            conf.DEFINE('HAVE_GNUTLS3', 1)
-        else:
-            conf.CHECK_CFG(package='gnutls',
-                           args='"gnutls >= 1.4.0 gnutls != 2.2.4 gnutls != 2.8.0 gnutls != 2.8.1" --cflags --libs',
-                           msg='Checking for gnutls >= 1.4.0 and broken versions', mandatory=False)
+    # Android doesn't have GnuTLS, but it's checking whether the build machine has GnuTLS so the result can be wrong.
 
     if 'HAVE_GNUTLS' in conf.env:
         conf.DEFINE('ENABLE_GNUTLS', 1)

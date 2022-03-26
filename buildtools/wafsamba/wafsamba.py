@@ -143,6 +143,9 @@ def SAMBA_LIBRARY(bld, libname, source,
                   enabled=True):
     '''define a Samba library'''
 
+    if pyembed or pyext:
+        return
+
     if pyembed and bld.env['IS_EXTRA_PYTHON']:
         public_headers = pc_files = None
 
@@ -294,6 +297,14 @@ def SAMBA_LIBRARY(bld, libname, source,
                 bld.add_manual_dependency(bld.path.find_or_declare(instname), bld.path.find_or_declare(vscript))
             vscript = os.path.join(bld.path.abspath(bld.env), vscript)
 
+    if soname is not None:
+        segs = soname.split(".");
+        idxso = segs.index("so");
+        soname = ".".join(segs[:idxso])
+    else:
+        vnum=None
+        soname="lib" + bundled_name + ".so"
+
     bld.SET_BUILD_GROUP(group)
     t = bld(
         features        = features,
@@ -364,6 +375,9 @@ def SAMBA_BINARY(bld, binname, source,
                  install_path=None,
                  enabled=True):
     '''define a Samba binary'''
+
+    if pyembed:
+        return
 
     if not enabled:
         SET_TARGET_TYPE(bld, binname, 'DISABLED')
@@ -465,6 +479,9 @@ def SAMBA_MODULE(bld, modname, source,
                  allow_warnings=False
                  ):
     '''define a Samba module.'''
+
+    if pyembed:
+        return
 
     bld.ASSERT(subsystem, "You must specify a subsystem for SAMBA_MODULE(%s)" % modname)
 
@@ -569,6 +586,9 @@ def SAMBA_SUBSYSTEM(bld, modname, source,
                     pyext=False,
                     pyembed=False):
     '''define a Samba subsystem'''
+
+    if pyembed or pyext:
+        return
 
     if not enabled:
         SET_TARGET_TYPE(bld, modname, 'DISABLED')

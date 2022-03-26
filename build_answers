@@ -1,0 +1,39 @@
+Checking uname sysname type: "Linux"
+Checking uname machine type: "arm"
+Checking uname release type: "Linux"
+Checking uname version type: "Linux"
+Checking simple C program: OK
+rpath library support: FAIL
+-Wl,--version-script support: FAIL
+Checking getconf LFS_CFLAGS: FAIL
+Checking for large file support without additional flags: FAIL
+Checking for -D_FILE_OFFSET_BITS=64: OK
+Checking for -D_LARGE_FILES: FAIL
+Checking correct behavior of strtoll: OK
+Checking for working strptime: OK
+Checking for C99 vsnprintf: OK
+Checking for HAVE_SHARED_MMAP: FAIL
+Checking for HAVE_MREMAP: FAIL
+Checking for HAVE_INCOHERENT_MMAP: FAIL
+Checking for HAVE_SECURE_MKSTEMP: FAIL
+Checking for HAVE_IFACE_GETIFADDRS: OK
+Checking value of NSIG: "65"
+Checking value of _NSIG: "65"
+Checking value of SIGRTMAX: "64"
+Checking value of SIGRTMIN: "35"
+Checking for kernel change notify support: FAIL
+Checking for Linux kernel oplocks: FAIL
+Checking for kernel share modes: OK
+vfs_fileid checking for statfs() and struct statfs.f_fsid: OK
+Checking whether we can use Linux thread-specific credentials with 32-bit system calls: OK
+Checking whether seteuid is available: OK
+Checking whether setreuid is available: OK
+Checking whether setresuid is available: OK
+Checking whether fcntl locking is available: OK
+Checking for the maximum value of the 'time_t' type: FAIL
+Checking whether the realpath function allows a NULL argument: FAIL
+Checking for ftruncate extend: FAIL
+getcwd takes a NULL argument: OK
+Checking for HAVE_IFACE_IFCONF: FAIL
+Checking whether we can use Linux thread-specific credentials: FAIL
+Checking whether fcntl lock supports open file description locks: FAIL

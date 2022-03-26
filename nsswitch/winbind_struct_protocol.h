@@ -23,6 +23,10 @@ typedef char fstring[FSTRING_LEN];
 #ifndef _WINBINDD_NTDOM_H
 #define _WINBINDD_NTDOM_H
 
+#ifdef pw_gecos
+#undef pw_gecos
+#endif
+
 #define WINBINDD_SOCKET_NAME "pipe"            /* Name of PF_UNIX socket */
 
 /* We let the build environment set the public winbindd socket

@@ -20,9 +20,9 @@
 */
 
 #include "includes.h"
+#include "system/network.h"
 #include "lib/socket/socket.h"
 #include "system/filesys.h"
-#include "system/network.h"
 #include "param/param.h"
 #include "../lib/tsocket/tsocket.h"
 #include "lib/util/util_net.h"

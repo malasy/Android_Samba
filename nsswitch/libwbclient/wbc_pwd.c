@@ -46,7 +46,6 @@ static void wbcPasswdDestructor(void *ptr)
 	struct passwd *pw = (struct passwd *)ptr;
 	free(pw->pw_name);
 	free(pw->pw_passwd);
-	free(pw->pw_gecos);
 	free(pw->pw_shell);
 	free(pw->pw_dir);
 }
@@ -66,10 +65,6 @@ static struct passwd *copy_passwd_entry(struct winbindd_pw *p)
 	}
 	pw->pw_passwd = strdup(p->pw_passwd);
 	if (pw->pw_passwd == NULL) {
-		goto fail;
-	}
-	pw->pw_gecos = strdup(p->pw_gecos);
-	if (pw->pw_gecos == NULL) {
 		goto fail;
 	}
 	pw->pw_shell = strdup(p->pw_shell);

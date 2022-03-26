@@ -249,9 +249,11 @@ def configure(conf):
     conf.CHECK_FUNCS('prctl dirname basename')
 
     # libbsd on some platforms provides strlcpy and strlcat
-    if not conf.CHECK_FUNCS('strlcpy strlcat'):
-        conf.CHECK_FUNCS_IN('strlcpy strlcat', 'bsd', headers='bsd/string.h',
-                checklibc=True)
+    # Android provides strlcpy and strlcat but the build host doesn't. Comment
+    # out these checks to compile asn1_compiler and compile_et.
+    #if not conf.CHECK_FUNCS('strlcpy strlcat'):
+    #    conf.CHECK_FUNCS_IN('strlcpy strlcat', 'bsd', headers='bsd/string.h',
+    #            checklibc=True)
     if not conf.CHECK_FUNCS('getpeereid'):
         conf.CHECK_FUNCS_IN('getpeereid', 'bsd', headers='sys/types.h bsd/unistd.h')
     if not conf.CHECK_FUNCS_IN('setproctitle', 'setproctitle', headers='setproctitle.h'):
@@ -406,8 +408,10 @@ removeea setea
 
     conf.CHECK_FUNCS_IN('pthread_create', 'pthread', checklibc=True, headers='pthread.h')
 
-    PTHREAD_CFLAGS='error'
-    PTHREAD_LDFLAGS='error'
+    # Android doesn't have pthread library so '-lpthread' will cause build
+    # failure. Android provides limited pthread support via libc and bionic.
+    PTHREAD_CFLAGS=''
+    PTHREAD_LDFLAGS=''
 
     if PTHREAD_LDFLAGS == 'error':
         if conf.CHECK_FUNCS_IN('pthread_attr_init', 'pthread'):
@@ -599,8 +603,7 @@ removeea setea
                     exit(0);
                     ''',
                     define='HAVE_SECURE_MKSTEMP',
-                    execute=True,
-                    mandatory=True) # lets see if we get a mandatory failure for this one
+                    execute=True) # lets see if we get a mandatory failure for this one
 
     # look for a method of finding the list of network interfaces
     for method in ['HAVE_IFACE_GETIFADDRS', 'HAVE_IFACE_AIX', 'HAVE_IFACE_IFCONF', 'HAVE_IFACE_IFREQ']:

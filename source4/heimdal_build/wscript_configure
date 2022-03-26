@@ -16,14 +16,17 @@ conf.CHECK_TYPE('u_int32_t', 'uint32_t')
 conf.CHECK_HEADERS('err.h')
 
 conf.CHECK_HEADERS('ifaddrs.h')
+
+# Remove checks for netinet.in6, get/setprogname because build host doesn't
+# provide them but Android does. These files are used to compile asn1 compiler
+# and compile_et as compile tools so using Android config here is wrong.
 conf.CHECK_HEADERS('''crypt.h errno.h inttypes.h netdb.h signal.h sys/bswap.h
                   sys/file.h sys/stropts.h sys/timeb.h sys/times.h sys/uio.h sys/un.h
-              sys/utsname.h time.h timezone.h ttyname.h netinet/in.h
-              netinet/in6.h netinet6/in6.h''')
+              sys/utsname.h time.h timezone.h ttyname.h netinet/in.h netinet6/in6.h''')
 
 conf.CHECK_HEADERS('curses.h term.h termcap.h', together=True)
 
-conf.CHECK_FUNCS('''atexit cgetent getprogname setprogname gethostname
+conf.CHECK_FUNCS('''atexit cgetent gethostname
                     putenv rcmd readv sendmsg setitimer strlwr strncasecmp
             strptime strsep strsep_copy    strtok_r strupr swab umask uname unsetenv
             closefrom err warn errx warnx flock writev''')

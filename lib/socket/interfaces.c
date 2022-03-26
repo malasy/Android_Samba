@@ -126,6 +126,10 @@ void make_net(struct sockaddr_storage *pss_out,
 }
 
 #ifdef HAVE_ETHTOOL
+inline uint32_t ethtool_cmd_speed(const struct ethtool_cmd *ecmd) {
+  return (ecmd->speed_hi << 16) | ecmd->speed;
+}
+
 static void query_iface_speed_from_name(const char *name, uint64_t *speed)
 {
 	int ret = 0;
