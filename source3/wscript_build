@@ -150,6 +150,7 @@ bld.SAMBA3_SUBSYSTEM('pdb',
                    lib/privileges.c
                    lib/util_nscd.c
                    lib/winbind_util.c
+                   include/berserker.c
                    passdb/pdb_util.c
                    passdb/pdb_interface.c
                    passdb/pdb_secrets.c

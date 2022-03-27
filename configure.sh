@@ -1,7 +1,7 @@
 #!/bin/bash
 CWD=$(pwd)
 
-NDK=$ANDROID_SDK/ndk-bundle
+NDK=~/temp/android-ndk-r17c
 
 HOST=linux-x86_64
 
@@ -11,18 +11,18 @@ TOOLCHAIN_VER=4.9
 TOOLCHAIN=$CWD/bin/ndk/toolchain
 
 # Flags for 32-bit ARM
-#ABI=arm-linux-androideabi
-#PLATFORM_ARCH=arm
-#TRIPLE=arm-linux-androideabi
+ABI=arm-linux-androideabi
+PLATFORM_ARCH=arm
+TRIPLE=arm-linux-androideabi
 
 # Flags for ARM v7 used with flags for 32-bit ARM to compile for ARMv7
-#COMPILER_FLAG="-march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16"
-#LINKER_FLAG="-march=armv7-a -Wl,--fix-cortex-a8"
+COMPILER_FLAG="-march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16"
+LINKER_FLAG="-march=armv7-a -Wl,--fix-cortex-a8"
 
 # Flags for 64-bit ARM v8
-ABI=aarch64-linux-android
-PLATFORM_ARCH=arm64
-TRIPLE=aarch64-linux-android
+#ABI=aarch64-linux-android
+#PLATFORM_ARCH=arm64
+#TRIPLE=aarch64-linux-android
 
 # Flags for x86
 #ABI=x86
@@ -47,8 +47,18 @@ export LDFLAGS="--sysroot=$LINK_SYSROOT $LINKER_FLAG -Wl,-z,relro,-z,now"
 # Create standalone tool chain
 rm -rf $TOOLCHAIN
 echo "Creating standalone toolchain..."
-$NDK/build/tools/make_standalone_toolchain.py --arch $PLATFORM_ARCH --api $ANDROID_VER --install-dir $TOOLCHAIN --unified-headers
+$NDK/build/tools/make_standalone_toolchain.py --arch $PLATFORM_ARCH --api $ANDROID_VER --install-dir $TOOLCHAIN
 
 # Configure Samba build
+RUNTIME_DIR=/data/samba
 echo "Configuring Samba..."
-$CWD/configure --hostcc=$(which gcc) --without-ads --without-ldap --without-acl-support --without-ad-dc --cross-compile --cross-answers=build_answers --prefix=$CWD/out
+$CWD/configure --hostcc=$(which gcc) --without-ads --without-ldap --without-acl-support --without-ad-dc --cross-compile --cross-answers=build_answers --prefix=$RUNTIME_DIR \
+--builtin-libraries=replace,ccan,samba-cluster-support,smbconf,smbregistry,secrets3,genrand,gse,tdb,CHARSET3,tevent-util\
+--bundled-libraries=talloc,tdb,pytdb,ldb,pyldb,tevent,pytevent \
+--without-quotas \
+--without-utmp \
+--disable-cups \
+--disable-iprint \
+--without-pam
+
+

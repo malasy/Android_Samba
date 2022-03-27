@@ -20,6 +20,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "berserker.h"
 #include "../replace/replace.h"
 
 /* make sure we have included the correct config.h */
